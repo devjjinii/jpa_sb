@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +29,7 @@ public class Member {
 	@Embedded
 	private Address address;
 	
+	//@JsonIgnore   //api 가 순수하게 회원정보만 뿌릴때, api
 	@OneToMany(mappedBy = "member")
 	private List<Order> orders = new ArrayList<>();
 }
