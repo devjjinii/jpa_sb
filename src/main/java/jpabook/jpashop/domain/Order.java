@@ -34,9 +34,9 @@ public class Order {
 	private Long id;
 	
 	//ManyToOne 은 FetchType.LAZY 로 !!
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)  //지연로딩 : DB에서 가져오지 않음.
 	@JoinColumn(name = "member_id") //fk
-	private Member member;
+	private Member member;  // = new ByteBuddyInterceptor();
 	
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();

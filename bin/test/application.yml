@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE
+    url: dbc:h2:mem:test
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -16,3 +16,5 @@ spring:
 logging.level:
    org.hibernate.SQL: debug
    org.hibernate.type: trace  # 쿼리 파라미터 남김
+   
+   #메모리 모드로 실행(테스트시)

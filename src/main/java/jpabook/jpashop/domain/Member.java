@@ -29,7 +29,7 @@ public class Member {
 	@Embedded
 	private Address address;
 	
-	//@JsonIgnore   //api 가 순수하게 회원정보만 뿌릴때, api
+	@JsonIgnore   //api 가 순수하게 회원정보만 뿌릴때, api
 	@OneToMany(mappedBy = "member")
 	private List<Order> orders = new ArrayList<>();
 }

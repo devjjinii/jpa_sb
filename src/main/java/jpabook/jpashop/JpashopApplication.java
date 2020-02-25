@@ -2,6 +2,9 @@ package jpabook.jpashop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 @SpringBootApplication
 public class JpashopApplication {
@@ -10,4 +13,11 @@ public class JpashopApplication {
 		SpringApplication.run(JpashopApplication.class, args);
 	}
 
+	 // entity 노출 금지  , 모듈 자체를 등록해서 사용하는건 .. 좀..
+	@Bean
+	Hibernate5Module hibernate5Module() {
+		Hibernate5Module hibernate5Module = new Hibernate5Module();
+		//hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING,true);
+		return hibernate5Module;
+	}
 }
