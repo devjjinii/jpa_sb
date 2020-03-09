@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jpabook.jpashop.domain.Address;
@@ -13,6 +14,9 @@ import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.order.query.OrderFlatDto;
+import jpabook.jpashop.repository.order.query.OrderQueryDto;
+import jpabook.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderApiController {
 
 	private final OrderRepository orderRepository;
+	private final OrderQueryRepository orderQueryRepository; 
 	
 	@GetMapping("/api/v1/orders")    // api entity 노출시키면 안됨!!
 	public List<Order> orderV1() {
@@ -44,6 +49,47 @@ public class OrderApiController {
 			.collect(Collectors.toList());
 		
 		return result;
+	}
+	
+	// 데이터 중복 발생 ( 데이터의 양이 많아지면 속도,성능 문제 발생)
+	@GetMapping("/api/v3/orders")
+	public List<OrderDto> ordersV3() {
+		List<Order> orders = orderRepository.findAllWithItem();
+		
+		List<OrderDto> result = orders.stream()
+				.map(o -> new OrderDto(o))
+				.collect(Collectors.toList());
+			
+			return result;
+	}
+	
+	// 제일 최적화 된 api ( 페이징도 처리 )
+	@GetMapping("/api/v3.1/orders")
+	public List<OrderDto> ordersV3_page(
+			@RequestParam(value = "offset", defaultValue = "0" ) int offset,
+			@RequestParam(value = "limit", defaultValue = "100" ) int limit ){
+		List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+		
+		List<OrderDto> result = orders.stream()
+				.map(o -> new OrderDto(o))
+				.collect(Collectors.toList());
+			
+			return result;
+	}
+	
+	@GetMapping("/api/v4/orders")
+	public List<OrderQueryDto> ordersV4() {
+		return orderQueryRepository.findOrderQueryDtos();
+	}
+	
+	@GetMapping("/api/v5/orders")
+	public List<OrderQueryDto> ordersV5() {
+		return orderQueryRepository.findAllByDto_optimization();
+	}
+	
+	@GetMapping("/api/v6/orders")
+	public List<OrderFlatDto> ordersV6() {
+		return orderQueryRepository.findAllByDto_flat();
 	}
 	
 	//orderDTo로 변환

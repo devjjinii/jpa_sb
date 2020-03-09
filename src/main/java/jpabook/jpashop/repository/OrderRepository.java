@@ -74,7 +74,32 @@ public class OrderRepository {
 						" join fetch o.member m" +
 						" join fetch o.delivery d", Order.class)
 		.getResultList();
-		
+	}
+	
+	// 최적화되서 나온 쿼리( 주문 건수, 중복데이터 없이)
+	public List<Order> findAllWithMemberDelivery(int offset, int limit ) {
+		// select o from Order o 
+		return em.createQuery("select o from Order o" +
+						" join fetch o.member m" +
+						" join fetch o.delivery d", Order.class)
+				.setFirstResult(offset)
+				.setMaxResults(limit)
+				.getResultList();
+	}
+
+	// fetch join으로 sql 1번만 실행
+	// 일대다를 fetch 하는 순간, 페이징 처리 불가능
+	
+	// 쿼리는 한번에 나가지만 중복데이터가 많이 존재한다.
+	public List<Order> findAllWithItem() {
+		return em.createQuery("select distinct o from Order o" +
+							" join fetch o.member m" +
+							" join fetch o.delivery d" +
+							" join fetch o.orderItems oi" +
+							" join fetch oi.item i", Order.class)
+				//.setFirstResult(1)
+				//.setMaxResults(100)
+				.getResultList();
 	}
 
 }
