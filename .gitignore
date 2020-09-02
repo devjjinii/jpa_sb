@@ -1,4 +1,8 @@
+.DS_Store
 HELP.md
+/bin
+
+### Gradle ###
 .gradle
 gradle/
 build/
@@ -12,3 +16,33 @@ build/
 *.iml
 *.ipr
 out/
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Package Files #
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### VS Code ###
+.vscode/
+
+### Gradle Patch ###
+**/build/
