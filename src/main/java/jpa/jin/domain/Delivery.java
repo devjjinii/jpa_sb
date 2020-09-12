@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+// Entity 에는 Setter를 사용하지 않는다.
+// EAGER XX , LAZY OO
+// XToMany 는 기본이 LAZY,
+// ManyToX 는 LAZY 로 무조건
 @Entity
 @Getter @Setter
 public class Delivery {
@@ -13,7 +17,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded
