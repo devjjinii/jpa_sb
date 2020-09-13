@@ -1,6 +1,8 @@
 package jpa.jin.repository;
 
 import jpa.jin.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,11 +10,17 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+//    @PersistenceContext
+//    @Autowired
+    private final EntityManager em;
 
+//    public MemberRepository(EntityManager em) {
+//        this.em = em;
+//    }
+//
     // 저장
     public void save(Member member) {
         em.persist(member);
