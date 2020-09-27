@@ -1,5 +1,6 @@
 package jpa.jin.domain;
 
+import jpa.jin.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
