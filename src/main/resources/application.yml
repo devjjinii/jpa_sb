@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:tcp://localhost/~/test #jdbc:h2:mem:test 테스트 할때
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -12,6 +12,8 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+# h2 설정
+# 테스트 할 때, 설정 다 없어도 된다, 스프링 부트가 기본적으로 메모리 모드로 돌린다.
 
 logging:
   level:
