@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = true)  // 저장이 안됨.
 @RequiredArgsConstructor
 public class ItemService {
 
